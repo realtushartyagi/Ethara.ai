@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+:root {
+  /* Layout colors */
+  --background: #f8f8fb;
+  --foreground: #343a40;
+
+  --sidebar-bg: #1a3353;
+  --header-bg: #ffffff;
+  --card: #ffffff;
+
+  /* UI */
+  --border: #e9ebec;
+  --muted: #6c757d;
+
+  /* Theme colors */
+  --primary: #1226b4;
+  --secondary: #ee6d50;
+  --success: #34c38f;
+  --info: #50a5f1;
+  --warning: #f1b44c;
+  --danger: #f46a6a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-success: var(--success);
+  --color-info: var(--info);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-header-bg: var(--header-bg);
+
+  --font-sans: var(--font-poppins), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-poppins), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Hide scrollbars but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
