@@ -1,0 +1,23 @@
+yarn run v1.22.22
+$ eslint "{src,apps,libs,test}/**/*.ts" --fix
+
+/Users/yashsharma/Desktop/workspace/project-task/backend/src/auth/decorators/current-user.decorator.ts
+  9:5  error  Unsafe return of a value of type `any`  @typescript-eslint/no-unsafe-return
+
+/Users/yashsharma/Desktop/workspace/project-task/backend/src/main.ts
+  26:5  error    Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+  41:1  warning  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+
+/Users/yashsharma/Desktop/workspace/project-task/backend/test/app.e2e-spec.ts
+  20:5   error  Unsafe return of a value of type error                          @typescript-eslint/no-unsafe-return
+  20:12  error  Unsafe call of a type that could not be resolved                @typescript-eslint/no-unsafe-call
+  20:12  error  Unsafe call of a type that could not be resolved                @typescript-eslint/no-unsafe-call
+  20:12  error  Unsafe call of a type that could not be resolved                @typescript-eslint/no-unsafe-call
+  21:8   error  Unsafe member access .get on a type that cannot be resolved     @typescript-eslint/no-unsafe-member-access
+  22:8   error  Unsafe member access .expect on a type that cannot be resolved  @typescript-eslint/no-unsafe-member-access
+  23:8   error  Unsafe member access .expect on a type that cannot be resolved  @typescript-eslint/no-unsafe-member-access
+
+✖ 10 problems (9 errors, 1 warning)
+
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

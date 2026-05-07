@@ -1,0 +1,153 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+// ─────────────────────────────────────────
+// ENUMS
+// ─────────────────────────────────────────
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+// ─────────────────────────────────────────
+// USER
+// ─────────────────────────────────────────
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(MEMBER)
+  bio       String?
+  location  String?
+  department String?
+  title     String?
+  yearsOfExperience String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Projects this user ADMINS
+  adminProjects   Project[]       @relation("ProjectAdmin")
+
+  // Projects this user is a MEMBER of (via junction)
+  projectMembers  ProjectMember[]
+
+  // Tasks created by this user
+  createdTasks    Task[]          @relation("TaskCreator")
+
+  // Tasks assigned to this user
+  assignedTasks   Task[]          @relation("TaskAssignee")
+
+  @@index([email])
+  @@map("users")
+}
+
+// ─────────────────────────────────────────
+// PROJECT
+// ─────────────────────────────────────────
+
+enum ProjectStatus {
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  status      ProjectStatus @default(ACTIVE)
+  dueDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // The admin who created it
+  adminId     String
+  admin       User     @relation("ProjectAdmin", fields: [adminId], references: [id], onDelete: Cascade)
+
+  // Members via junction table
+  members     ProjectMember[]
+
+  // Tasks in this project
+  tasks       Task[]
+
+  @@index([adminId])
+  @@map("projects")
+}
+
+// ─────────────────────────────────────────
+// PROJECT MEMBER (Junction Table)
+// Stores who belongs to which project
+// ─────────────────────────────────────────
+
+model ProjectMember {
+  id        String   @id @default(uuid())
+  joinedAt  DateTime @default(now())
+
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Unique: one user can only be in a project once
+  @@unique([projectId, userId])
+  @@index([projectId])
+  @@index([userId])
+  @@map("project_members")
+}
+
+// ─────────────────────────────────────────
+// TASK
+// ─────────────────────────────────────────
+
+model Task {
+  id          String     @id @default(uuid())
+  title       String
+  description String?
+  status      TaskStatus @default(TODO)
+  priority    Priority   @default(MEDIUM)
+  dueDate     DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Which project this task belongs to
+  projectId   String
+  project     Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  // Who created this task (Admin typically)
+  createdById String
+  createdBy   User       @relation("TaskCreator", fields: [createdById], references: [id])
+
+  // Who is assigned to this task (can be null = unassigned)
+  assignedToId String?
+  assignedTo   User?     @relation("TaskAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+
+  @@index([projectId])
+  @@index([assignedToId])
+  @@index([status])
+  @@index([dueDate])
+  @@map("tasks")
+}

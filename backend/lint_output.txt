@@ -1,0 +1,40 @@
+yarn run v1.22.22
+$ eslint "{src,apps,libs,test}/**/*.ts" --fix
+
+/Users/yashsharma/Desktop/workspace/project-task/backend/src/auth/auth.module.ts
+  21:11  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+
+/Users/yashsharma/Desktop/workspace/project-task/backend/src/auth/decorators/current-user.decorator.ts
+  8:11  error  Unsafe assignment of an `any` value           @typescript-eslint/no-unsafe-assignment
+  9:5   error  Unsafe return of a value of type `any`        @typescript-eslint/no-unsafe-return
+  9:20  error  Unsafe member access .user on an `any` value  @typescript-eslint/no-unsafe-member-access
+
+/Users/yashsharma/Desktop/workspace/project-task/backend/src/auth/guards/roles.guard.ts
+  22:11  error    Unsafe assignment of an `any` value                                   @typescript-eslint/no-unsafe-assignment
+  23:35  warning  Unsafe argument of type `any` assigned to a parameter of type `Role`  @typescript-eslint/no-unsafe-argument
+  23:40  error    Unsafe member access .role on an `any` value                          @typescript-eslint/no-unsafe-member-access
+
+/Users/yashsharma/Desktop/workspace/project-task/backend/src/auth/strategies/jwt.strategy.ts
+  24:3  error  Async method 'validate' has no 'await' expression  @typescript-eslint/require-await
+
+/Users/yashsharma/Desktop/workspace/project-task/backend/src/main.ts
+  26:5  error    Unsafe assignment of an `any` value                                                                                                                                 @typescript-eslint/no-unsafe-assignment
+  41:1  warning  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+
+/Users/yashsharma/Desktop/workspace/project-task/backend/src/tasks/dto/create-task.dto.ts
+  35:30  error    Unsafe return of a value of type `any`                                                  @typescript-eslint/no-unsafe-return
+  35:47  warning  Unsafe argument of type `any` assigned to a parameter of type `string | number | Date`  @typescript-eslint/no-unsafe-argument
+
+/Users/yashsharma/Desktop/workspace/project-task/backend/test/app.e2e-spec.ts
+  20:5   error  Unsafe return of a value of type error                          @typescript-eslint/no-unsafe-return
+  20:12  error  Unsafe call of a type that could not be resolved                @typescript-eslint/no-unsafe-call
+  20:12  error  Unsafe call of a type that could not be resolved                @typescript-eslint/no-unsafe-call
+  20:12  error  Unsafe call of a type that could not be resolved                @typescript-eslint/no-unsafe-call
+  21:8   error  Unsafe member access .get on a type that cannot be resolved     @typescript-eslint/no-unsafe-member-access
+  22:8   error  Unsafe member access .expect on a type that cannot be resolved  @typescript-eslint/no-unsafe-member-access
+  23:8   error  Unsafe member access .expect on a type that cannot be resolved  @typescript-eslint/no-unsafe-member-access
+
+✖ 19 problems (16 errors, 3 warnings)
+
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
